@@ -1,9 +1,9 @@
 import { View } from "react-native";
 
 export function Header() {
-   return (
+  return (
     <View className="w-full flex-row items-center justify-between">
-
+      metro.config.js
     </View>
-   ) 
+  );
 }
