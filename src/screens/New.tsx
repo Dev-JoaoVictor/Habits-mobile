@@ -1,8 +1,16 @@
 import { useState } from "react";
-import { ScrollView, View, Text, TextInput } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 import { BackButton } from "../components/BackButton";
 import { Checkbox } from "../components/Checkbox";
+import colors from "tailwindcss/colors";
 
 const availableWeekDays = [
   "Domingo",
@@ -29,7 +37,10 @@ export function New() {
 
   return (
     <View className="flex-1 bg-background px-8 pt-16">
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         <BackButton />
         <Text className=" mt-6 text-3xl text-white font-extrabold">
           Criar hábito
@@ -39,6 +50,7 @@ export function New() {
         </Text>
         <TextInput
           placeholder="Exercícios, dormi bem, etc..."
+          placeholderTextColor={colors.zinc[400]}
           className="bg-zinc-800 h-12 pl-4 rounded-lg mt-3 text-white focus:border-2 focus:border-green-600"
         />
 
@@ -54,6 +66,16 @@ export function New() {
             onPress={() => handleToggleWeekDay(index)}
           />
         ))}
+
+        <TouchableOpacity
+          className="w-full flex-row h-14 mt-6 bg-green-600 rounded-lg justify-center items-center"
+          activeOpacity={0.7}
+        >
+          <Feather name="check" size={20} color={colors.white} />
+          <Text className="font-semibold text-base text-white ml-2">
+            Confirmar
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
