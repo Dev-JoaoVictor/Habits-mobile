@@ -4,6 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { api } from "../lib/axios";
 import { Header } from "../components/Header";
+import { Loading } from "../components/Loading";
+
 import { HabitDay, DAY_SIZE } from "../components/HabitDay";
 import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
 
@@ -30,8 +32,12 @@ export function Home() {
   }
 
   useEffect(() => {
-    fetchData()
-  },[]);
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <View className="flex-1 bg-background px-8 pt-16">
