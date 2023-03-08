@@ -5,12 +5,14 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { BackButton } from "../components/BackButton";
 import { Checkbox } from "../components/Checkbox";
 import colors from "tailwindcss/colors";
+import { api } from "../lib/axios";
 
 const availableWeekDays = [
   "Domingo",
@@ -23,6 +25,7 @@ const availableWeekDays = [
 ];
 
 export function New() {
+  const [title, setTitle] = useState("");
   const [weekDays, setWeekDays] = useState<number[]>([]);
 
   function handleToggleWeekDay(weekDayIndex: number) {
@@ -32,6 +35,25 @@ export function New() {
       );
     } else {
       setWeekDays((prevState) => [...prevState, weekDayIndex]);
+    }
+  }
+
+  async function handleCreateNewHabit() {
+    try {
+      if (!title.trim() || weekDays.length === 0) {
+        Alert.alert(
+          "Novo Hábito",
+          "informe o nome do hábito e escolha a periodicidade."
+        );
+      }
+      await api.post("/habits", { title, weekDays });
+      setTitle("");
+      setWeekDays([]);
+
+      Alert.alert('Novo Hábito', 'Hábito criado com sucesso!')
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Ops", "Não foi possível criar o novo Hábito");
     }
   }
 
@@ -52,6 +74,8 @@ export function New() {
           placeholder="Exercícios, dormi bem, etc..."
           placeholderTextColor={colors.zinc[400]}
           className="bg-zinc-900 h-12 pl-4 rounded-lg mt-3 text-white border-2 border-zinc-800 focus:border-green-600"
+          onChangeText={setTitle}
+          value={title}
         />
 
         <Text className="mt-4 mb-3 text-base font-semibold text-white">
@@ -70,6 +94,7 @@ export function New() {
         <TouchableOpacity
           className="w-full flex-row h-14 mt-6 bg-green-600 rounded-lg justify-center items-center"
           activeOpacity={0.7}
+          onPress={handleCreateNewHabit}
         >
           <Feather name="check" size={20} color={colors.white} />
           <Text className="font-semibold text-base text-white ml-2">
