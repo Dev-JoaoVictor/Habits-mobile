@@ -1,12 +1,13 @@
-import { ScrollView, View, Text, Alert } from "react-native";
-import { useRoute } from "@react-navigation/native";
-import { BackButton } from "../components/BackButton";
 import dayjs from "dayjs";
-import { ProgressBar } from "../components/ProgressBar";
-import { Checkbox } from "../components/Checkbox";
 import { useEffect, useState } from "react";
-import { Loading } from "../components/Loading";
+import { useRoute } from "@react-navigation/native";
+import { ScrollView, View, Text, Alert } from "react-native";
+
 import { api } from "../lib/axios";
+import { Loading } from "../components/Loading";
+import { Checkbox } from "../components/Checkbox";
+import { BackButton } from "../components/BackButton";
+import { ProgressBar } from "../components/ProgressBar";
 
 interface Params {
   date: string;
